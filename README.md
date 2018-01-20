@@ -11,7 +11,11 @@ Try <https://testflight.icook.tw>.
 
 ### ICKeyboardDismissTextField
 
-* A text field that has a button to dismiss keyboard on the input accessory view.
+A text field that has a button to dismiss keyboard on the input accessory view.
+
+### OptionPickerControl
+
+An easy to use `UIControl` that displays a `UIPickerView` with given options.
 
 ### ICTokenField
 
@@ -71,6 +75,39 @@ git submodule add -b master git@github.com:polydice/ICInputAccessory.git Depende
 let textField = ICKeyboardDismissTextField(frame: rect)
 ```
 
+### OptionPickerControl
+
+Example option type that conforms to `OptionDescriptive`:
+
+```swift
+extension String: OptionDescriptive {
+
+  var title: String {
+    return self
+  }
+
+  static var titleForOptionalValue: String {
+    return "(optional)"
+  }
+
+}
+```
+
+To initialize `OptionPickerControl` with `CGRect.zero` and add it to the view hierarchy:
+
+```swift
+let optionPicker = OptionPickerControl<String>()
+optionPicker = [Option<String>.optional(), Option("Option 1"), Option("Option 2")]
+optionPicker(self, action: #selector(didChangeOption(_:)), for: .valueChanged)
+view.addSubview(optionPicker)
+```
+
+To show the `UIPickerView`:
+
+```swift
+optionPicker.becomeFirstResponder()
+```
+
 ### ICTokenField
 
 ```swift
@@ -78,14 +115,14 @@ let tokenField = ICTokenField(frame: rect)
 tokenField.delegate = self as? ICTokenFieldDelegate
 ```
 
-* The characters that complete a token:
+The characters that complete a token:
 
 ```swift
 /// Characters that complete a new token, defaults are whitespace and commas.
 public var delimiters: [String]
 ```
 
-* Tokens:
+Tokens:
 
 ```swift
 /// Texts of each created token.
@@ -98,7 +135,7 @@ public func completeCurrentInputText()
 public func resetTokens()
 ```
 
-* UI customization:
+UI customization:
 
 ```swift
 /// The image on the left of text field.
@@ -117,7 +154,7 @@ public var normalTokenAttributes: [String : NSObject]? { get set }
 public var highlightedTokenAttributes: [String : NSObject]? { get set }
 ```
 
-* Customizable properties in storyboard:
+Customizable properties in storyboard:
 
 ```swift
 @IBInspectable var icon: UIImage?

@@ -1,3 +1,7 @@
+## Next Release
+
+* Add an easy to use `OptionPickerControl` that displays a `UIPickerView` with given options
+
 ## v1.4.1
 
 * Fix `tokenField(_:didChangeInputText:)` with the delete key [#20](https://github.com/polydice/ICInputAccessory/pull/20)
