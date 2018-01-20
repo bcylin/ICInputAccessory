@@ -1,6 +1,7 @@
 ## v1.5.0
 
 * Swift 4.0
+* Add an easy to use `OptionPickerControl` that displays a `UIPickerView` with given options
 
 ## v1.4.1
 
