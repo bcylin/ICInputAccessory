@@ -1,6 +1,6 @@
 //
 //  OptionPickerControl.swift
-//  Flashcards
+//  ICInputAccessory
 //
 //  Created by Ben on 27/11/2017.
 //  Copyright © 2017 bcylin.
