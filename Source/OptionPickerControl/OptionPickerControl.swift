@@ -34,7 +34,7 @@ open class OptionPickerControl<T: OptionDescriptive>: UIControl, UIPickerViewDat
   /// Returns an initialized `OptionPickerControl`.
   public init() {
     super.init(frame: .zero)
-    addSubview(responder)
+    addSubview(hiddenTextField)
   }
 
   /// Not supported. `OptionPickerControl` is not compatible with storyboards.
@@ -50,7 +50,9 @@ open class OptionPickerControl<T: OptionDescriptive>: UIControl, UIPickerViewDat
   /// The currently selected item in the options.
   public var selectedOption: Option<T> = Option<T>.optional() {
     didSet {
-      if let index = options.index(of: selectedOption) {
+      if hiddenTextField.isFirstResponder {
+        sendActions(for: .valueChanged)
+      } else if let index = options.index(of: selectedOption) {
         picker.selectRow(index, inComponent: 0, animated: false)
       }
     }
@@ -78,7 +80,7 @@ open class OptionPickerControl<T: OptionDescriptive>: UIControl, UIPickerViewDat
     return toolbar
   }()
 
-  private lazy var responder: UITextField = {
+  private lazy var hiddenTextField: UITextField = {
     let textField = UITextField()
     textField.inputAccessoryView = self.pickerToolbar
     textField.inputView = self.picker
@@ -89,12 +91,12 @@ open class OptionPickerControl<T: OptionDescriptive>: UIControl, UIPickerViewDat
 
   @discardableResult
   override open func becomeFirstResponder() -> Bool {
-    return super.becomeFirstResponder() || responder.becomeFirstResponder()
+    return super.becomeFirstResponder() || hiddenTextField.becomeFirstResponder()
   }
 
   @discardableResult
   override open func resignFirstResponder() -> Bool {
-    return responder.resignFirstResponder()
+    return hiddenTextField.resignFirstResponder()
   }
 
   // MARK: - UIPickerViewDataSource
@@ -116,7 +118,6 @@ open class OptionPickerControl<T: OptionDescriptive>: UIControl, UIPickerViewDat
 
   open func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     selectedOption = options[row]
-    sendActions(for: .valueChanged)
   }
 
   // MARK: - IBActions
