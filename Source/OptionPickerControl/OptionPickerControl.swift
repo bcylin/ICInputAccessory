@@ -73,15 +73,15 @@ open class OptionPickerControl<T: OptionDescriptive>: UIControl, UIPickerViewDat
     let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
     toolbar.items = [
       UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-      doneBarButton
+      self.doneBarButton
     ]
     return toolbar
   }()
 
   private lazy var responder: UITextField = {
     let textField = UITextField()
-    textField.inputAccessoryView = pickerToolbar
-    textField.inputView = picker
+    textField.inputAccessoryView = self.pickerToolbar
+    textField.inputView = self.picker
     return textField
   }()
 
