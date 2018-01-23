@@ -98,7 +98,7 @@ To initialize `OptionPickerControl` with `CGRect.zero` and add it to the view hi
 
 ```swift
 let optionPicker = OptionPickerControl<String>()
-optionPicker = [Option<String>.optional(), Option("Option 1"), Option("Option 2")]
+optionPicker.options = [Option<String>.optional(), Option("Option 1"), Option("Option 2")]
 optionPicker.addTarget(self, action: #selector(didChangeOption(_:)), for: .valueChanged)
 view.addSubview(optionPicker)
 ```
